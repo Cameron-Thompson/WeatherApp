@@ -1,8 +1,10 @@
+from mysqlx import Error
 import requests 
 import json
 import xml
-import mysql
-from helpers import validateResponse, writeToDictionary
+import mysql.connector 
+from helpers import validateResponse, writeToArray
+
 
 forecastDict = ''
 
@@ -13,8 +15,19 @@ forecastDict = validateResponse(response)
 
 
 records = []
-writeToDictionary(forecastDict, records)
+writeToArray(forecastDict, records)
+print (records)
 
 #push records to the db 
 
+connection = mysql.connector.connect(host='localhost',
+                                         database='weather',
+                                         user='root',passwd='')
+if connection.is_connected():
+        db_Info = connection.get_server_info()
+        print("Connected to MySQL Server version ", db_Info)
+        cursor = connection.cursor()
+        cursor.execute("select database();")
+        record = cursor.fetchone()
+        print("You're connected to database: ", record)
 

@@ -1,4 +1,4 @@
-def writeToDictionary(forecastDict, records):
+def writeToArray(forecastDict, records):
     for dailyRecord in forecastDict['daily']:
          tempDict = {
           #write a temporary dictionary and then append to an array
