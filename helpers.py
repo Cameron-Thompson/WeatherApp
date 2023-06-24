@@ -11,6 +11,7 @@ def writeToArray(forecastDict, records):
           "precipitation_chance": dailyRecord['pop'],
      }
          records.append(tempDict)
+    return records
 
 
 def validateResponse(response):
