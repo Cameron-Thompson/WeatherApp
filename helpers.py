@@ -1,5 +1,4 @@
 import datetime
-import xmltodict
 
 #daily is a subset of the data from the api, it is an array of hashmaps 
 #by looping over each element (each hashmap, each day's results in other words)
@@ -20,7 +19,7 @@ def writeToArray(forecastDict, records):
          records.append(tempArr)
     return records
 
-
+#determine if the response is json 
 def validateResponse(response):
     try:
        if (response.headers.get('Content-Type').startswith('application/json')):
@@ -50,7 +49,7 @@ def convertTimestamp(timestamp):
      dateTime = datetime.datetime.fromtimestamp(timestamp)
      return dateTime
 
-
+#read in a csvFile
 def readInCSVFile(records):
     with open('exampleCSV.csv',mode='r') as CSVFile:
        csvReader = csv.reader(CSVFile)
