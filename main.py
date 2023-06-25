@@ -17,6 +17,7 @@ forecastDict = validateResponse(response)
 
 records = []
 writeToArray(forecastDict, records)
+print(records)
 
 #push records to the db 
 connection = mysql.connector.connect(host='localhost', user='root',passwd='root', database = 'weatherdb')
@@ -24,5 +25,5 @@ validateDatabaseConnection(connection)
 
 myCursor = connection.cursor()
 myCursor.execute(createTableString)
-print(records[0])
-myCursor.execute(insertTableString,records[0])
+myCursor.execute(insertTableString)
+connection.commit()
