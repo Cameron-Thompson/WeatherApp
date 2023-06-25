@@ -1,13 +1,15 @@
+import datetime
+
 def writeToArray(forecastDict, records):
     for dailyRecord in forecastDict['daily']:
          tempDict = {
           #write a temporary dictionary and then append to an array
           "latitude": forecastDict['lat'],
           "longitude": forecastDict['lon'],
-          "timestamp": dailyRecord['dt'],
+          "time_of_Prediction": datetime.datetime.fromtimestamp(dailyRecord['dt']),
           "temperature": dailyRecord['temp']['day'],
-          "windspeed": dailyRecord['wind_speed'],
-          "wind_deg": dailyRecord['wind_deg'],
+          "wind_speed": dailyRecord['wind_speed'],
+          "wind_direction": dailyRecord['wind_deg'],
           "precipitation_chance": dailyRecord['pop'],
      }
          records.append(tempDict)
@@ -23,3 +25,16 @@ def validateResponse(response):
     except TypeError as te:
          print("Error: " + te)
     return forecastDict
+
+
+
+def validateDatabaseConnection(connection):
+    if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)
+            cursor = connection.cursor()
+            cursor.execute("select database();")
+            record = cursor.fetchone()
+            print("You're connected to database: ", record)
+    else:
+            print("You are not connected to the database")
