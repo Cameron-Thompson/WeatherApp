@@ -6,11 +6,11 @@ from helpers import validateResponse, writeToArray
 class TestHelpers(unittest.TestCase):
     def runTest(self):
         response = {
-    "lat": 54.5973,
-    "lon": 5.9301,
-    "timezone": "Europe/Berlin",
-    "timezone_offset": 7200,
-    "daily": [
+        "lat": 54.5973,
+        "lon": 5.9301,
+        "timezone": "Europe/Berlin",
+        "timezone_offset": 7200,
+        "daily": [
         {
             "dt": 1687604400,
             "sunrise": 1687575623,
@@ -52,7 +52,8 @@ class TestHelpers(unittest.TestCase):
             "uvi": 6.91
         }
     ]
-}
+        }
+        
         expectedArray = [{'latitude': 54.5973, 'longitude': 5.9301, 'timestamp': 1687604400, 'temperature': 290.45, 'windspeed': 5.98, 'wind_deg': 200, 'precipitation_chance': 0}]
         actualArray = []
         actualArray = writeToArray(response,actualArray)

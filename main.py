@@ -21,8 +21,7 @@ print (records)
 #push records to the db 
 
 connection = mysql.connector.connect(host='localhost',
-                                         database='weather',
-                                         user='root',passwd='')
+                                         user='root',passwd='root')
 if connection.is_connected():
         db_Info = connection.get_server_info()
         print("Connected to MySQL Server version ", db_Info)
