@@ -2,17 +2,18 @@ import datetime
 
 def writeToArray(forecastDict, records):
     for dailyRecord in forecastDict['daily']:
-         tempDict = {
-          #write a temporary dictionary and then append to an array
-          "latitude": forecastDict['lat'],
-          "longitude": forecastDict['lon'],
-          "time_of_Prediction": datetime.datetime.fromtimestamp(dailyRecord['dt']),
-          "temperature": dailyRecord['temp']['day'],
-          "wind_speed": dailyRecord['wind_speed'],
-          "wind_direction": dailyRecord['wind_deg'],
-          "precipitation_chance": dailyRecord['pop'],
-     }
-         records.append(tempDict)
+         tempArr = [
+          #write a temporary array and then append to an array
+          forecastDict['lat'],
+          forecastDict['lon'],
+          convertTimestamp(dailyRecord['dt']),
+          dailyRecord['temp']['day'],
+          dailyRecord['wind_speed'],
+          dailyRecord['wind_deg'],
+          dailyRecord['pop'],
+         ]
+         records.append(tempArr)
+    print(records[0])
     return records
 
 
@@ -38,3 +39,10 @@ def validateDatabaseConnection(connection):
             print("You're connected to database: ", record)
     else:
             print("You are not connected to the database")
+
+
+def convertTimestamp(timestamp):
+     print(timestamp)
+     dateTime = datetime.datetime.fromtimestamp(timestamp)
+     print(dateTime)
+     return dateTime

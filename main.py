@@ -14,16 +14,17 @@ api_url = "https://api.openweathermap.org/data/3.0/onecall?lat=54.5973&lon=5.930
 response = requests.get(api_url)
 forecastDict = validateResponse(response)
 
-
 records = []
 writeToArray(forecastDict, records)
-print(records)
 
 #push records to the db 
 connection = mysql.connector.connect(host='localhost', user='root',passwd='root', database = 'weatherdb')
 validateDatabaseConnection(connection)
-
 myCursor = connection.cursor()
 myCursor.execute(createTableString)
-myCursor.execute(insertTableString)
-connection.commit()
+try:
+   #executemany designed to take arrays, not an array of hash's as attempted
+   myCursor.executemany(insertTableString,records)
+   connection.commit()
+except:
+   connection.rollback()
