@@ -1,9 +1,14 @@
 import datetime
+import xmltodict
 
+#daily is a subset of the data from the api, it is an array of hashmaps 
+#by looping over each element (each hashmap, each day's results in other words)
+#We can extract the required data for each day, some data is fixed such as lat and lon 
+#so we don't have to drill down into each element of the daily array for these.
 def writeToArray(forecastDict, records):
     for dailyRecord in forecastDict['daily']:
          tempArr = [
-          #write a temporary array and then append to an array
+          #write a temporary array and then append to an array for writing to the db
           forecastDict['lat'],
           forecastDict['lon'],
           convertTimestamp(dailyRecord['dt']),
@@ -13,7 +18,6 @@ def writeToArray(forecastDict, records):
           dailyRecord['pop'],
          ]
          records.append(tempArr)
-    print(records[0])
     return records
 
 
@@ -28,7 +32,7 @@ def validateResponse(response):
     return forecastDict
 
 
-
+#ensure the database has been connected to sucessfully
 def validateDatabaseConnection(connection):
     if connection.is_connected():
             db_Info = connection.get_server_info()
@@ -39,10 +43,18 @@ def validateDatabaseConnection(connection):
             print("You're connected to database: ", record)
     else:
             print("You are not connected to the database")
+            quit()
 
-
+#convert the timestamp into a datetime 
 def convertTimestamp(timestamp):
-     print(timestamp)
      dateTime = datetime.datetime.fromtimestamp(timestamp)
-     print(dateTime)
      return dateTime
+
+
+def readInCSVFile(records):
+    with open('exampleCSV.csv',mode='r') as CSVFile:
+       csvReader = csv.reader(CSVFile)
+   #skip the headers
+       next(csvReader)
+       csvData = next(csvReader)
+       records.append(csvData)

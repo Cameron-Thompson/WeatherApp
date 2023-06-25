@@ -1,3 +1,4 @@
+import datetime
 import json
 import unittest
 from numpy import testing
@@ -54,11 +55,12 @@ class TestHelpers(unittest.TestCase):
     ]
         }
         
-        expectedArray = [{'latitude': 54.5973, 'longitude': 5.9301, 'timestamp': 1687604400, 'temperature': 290.45, 'windspeed': 5.98, 'wind_deg': 200, 'precipitation_chance': 0}]
+        expectedArray = [54.5973,5.9301,datetime.datetime(2023, 6, 24, 12, 0),290.45,5.98,200,0]
         actualArray = []
         actualArray = writeToArray(response,actualArray)
-        testing.assert_array_equal(expectedArray[0],actualArray[0])
+        print(actualArray)
+        print(expectedArray)
+        testing.assert_array_equal(expectedArray,actualArray[0])
 
-        
 if __name__ == '__main__':
     unittest.main()
