@@ -8,5 +8,5 @@ readInCSVFile(records)
 jsonForecastDict = requestWeatherData()
 writeToArray(jsonForecastDict, records)
 #push records to the db 
-connection, myCursor = connectToDB()
+connection, myCursor = database.connectToDB()
 database.writeToDB(records, connection, myCursor)

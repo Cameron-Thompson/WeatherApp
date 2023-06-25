@@ -1,3 +1,4 @@
+import csv
 import datetime
 
 #daily is a subset of the data from the api, it is an array of hashmaps 
